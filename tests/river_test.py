@@ -5,16 +5,17 @@ from src.fish import Fish
 class TestRiver(unittest.TestCase):
 
     def setUp(self):
-        self.river = River("Clyde")
-        self.fish_1 = Fish("Fred")
-        self.fish_2 = Fish("Fin")
-        self.river.holds_fish.append(self.fish_1)
-        self.river.holds_fish.append(self.fish_2)
+        self.fish1 = Fish("Fred")
+        self.fish2 = Fish("Jaws")
+        self.river = River("Clyde", [self.fish1, self.fish2])
 
-    def test_river_has_name(self):             
-        actual = self.river.name                
-        self.assertEqual ("Clyde", actual)                                            
+    def test_river_has_name(self):                         
+        self.assertEqual ("Clyde", self.river.name)                                            
 
-    def test_fish_count(self):
-        actual = self.river.fish_count()
-        self.assertEqual(2, actual)
+    def test_river_has_fish(self):
+        self.assertEqual(2, self.river.fish_count())
+
+    def test_can_get_fish(self):
+        fish = self.river.give_fish()
+        self.assertEqual(1, self.river.fish_count())
+        self.assertEqual("Jaws", fish.name)
